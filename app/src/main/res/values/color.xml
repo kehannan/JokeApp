@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- using the "Light Blue" Material Palette -->
+    <color name="primary">#8BC34A</color>  <!-- 500 -->
+    <color name="primary_dark">#689F38</color>  <!-- 700 -->
+    <color name="primary_light">#DCEDC8</color> <!-- 100 -->
+    <color name="accent">#80D8FF</color>
+
+
+
+
+</resources>
+

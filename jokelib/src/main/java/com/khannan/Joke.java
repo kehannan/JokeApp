@@ -5,18 +5,18 @@ package com.khannan;
  */
 public class Joke {
 
-    private String joke;
+    private String jokeText;
 
     public Joke(String joke) {
-        this.joke = joke;
+        this.jokeText = joke;
     }
 
-    public String getJoke() {
-        return joke;
+    public String getJokeText() {
+        return jokeText;
     }
 
-    public void setJoke(String joke) {
-        this.joke = joke;
+    public void setJokeText(String jokeText) {
+        this.jokeText = jokeText;
     }
 }
 

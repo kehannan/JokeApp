@@ -31,7 +31,7 @@ You will learn the role of Gradle in building Android Apps and how to use Gradle
 
 This is the starting point for the final project, which is provided to you in the [course repository](https://github.com/udacity/ud867/tree/master/FinalProject).
 It contains an activity with a banner ad and a button that purports to tell a
-joke, but actually just complains. The banner ad was set up following the
+jokeText, but actually just complains. The banner ad was set up following the
 instructions here:
 
 https://developers.google.com/mobile-ads-sdk/docs/admob/android/quick-start
@@ -49,14 +49,14 @@ Gradle Java project either using the Android Studio wizard, or by hand. Then
 introduce a project dependency between your app and the new Java Library. If
 you need review, check out demo 4.01 from the course code.
 
-Make the button display a toast showing a joke retrieved from your Java joke
+Make the button display a toast showing a jokeText retrieved from your Java jokeText
 telling library.
 
 ### Step 2: Create an Android Library
 
-Create an Android Library containing an Activity that will display a joke
+Create an Android Library containing an Activity that will display a jokeText
 passed to it as an intent extra. Wire up project dependencies so that the
-button can now pass the joke from the Java Library to the Android Library.
+button can now pass the jokeText from the Java Library to the Android Library.
 
 For review on how to create an Android library, check out demo 4.03. For a
 refresher on intent extras, check out;
@@ -75,7 +75,7 @@ https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/He
 Introduce a project dependency between your Java library and your GCE module,
 and modify the GCE starter code to pull jokes from your Java library. Create
 an Async task to retrieve jokes. Make the button kick off a task to retrieve a
-joke, then launch the activity from your Android Library to display it.
+jokeText, then launch the activity from your Android Library to display it.
 
 ### Step 4: Add Functional Tests
 
@@ -94,14 +94,14 @@ To exceed expectations, do the following:
 ### Add Interstitial Ad
 
 Follow these instructions to add an interstitial ad to the free version.
-Display the add after the user hits the button, but before the joke is shown.
+Display the add after the user hits the button, but before the jokeText is shown.
 
 https://developers.google.com/mobile-ads-sdk/docs/admob/android/interstitial
 
 ### Add Loading Indicator
 
-Add a loading indicator that is shown while the joke is being retrieved and
-disappears when the joke is ready. The following tutorial is a good place to
+Add a loading indicator that is shown while the jokeText is being retrieved and
+disappears when the jokeText is ready. The following tutorial is a good place to
 start:
 
 http://www.tutorialspoint.com/android/android_loading_spinner.htm
@@ -132,6 +132,6 @@ To tie it all together, create a Gradle task that:
 
 To receive "exceeds specifications", your app must fully implement all of the following items.
 
-* The free app variant displays interstitial ads between the main activity and the joke-displaying activity.
-* The app displays a loading indicator while the joke is being fetched from the server.
+* The free app variant displays interstitial ads between the main activity and the jokeText-displaying activity.
+* The app displays a loading indicator while the jokeText is being fetched from the server.
 * The root build.gradle file contains a task that will start up the GCE development server, run all Android tests, then shutdown the development server.

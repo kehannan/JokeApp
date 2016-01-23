@@ -27,21 +27,14 @@ import com.khannan.Jokes;
 )
 public class MyEndpoint {
 
-    /**
-     * A simple endpoint method that takes a name and says Hi back
-     */
-    @ApiMethod(name="getJoke")
-    public MyBean getJoke() {
-
-    //@ApiMethod(name = "sayHi")
-   // public MyBean sayHi(@Named("name") String name) {
+    @ApiMethod(name="getJokeRemote")
+    public MyBean getJokeRemote() {
 
         MyBean response = new MyBean();
-        // response.setData("Hi, " + name);
 
         Jokes jokes = new Jokes();
-        Joke joke = jokes.getNextJoke();
-        response.setData(joke.getJoke());
+        Joke joke = jokes.getJoke();
+        response.setData(joke.getJokeText());
 
         return response;
     }

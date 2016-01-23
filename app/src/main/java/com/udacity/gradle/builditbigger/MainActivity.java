@@ -1,55 +1,40 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toolbar;
 
+import com.example.khannan.myapplication.backend.myApi.MyApi;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.khannan.Joke;
-import com.khannan.Jokes;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
+import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+
+import java.io.IOException;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     public static final String SENT_TOKEN_TO_SERVER = "sentToken";
     private static final String LOG_TAG = "MainActivity";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-
-
-    Jokes jokes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // If Google Play Services is up to date, we'll want to register GCM. If it is not, we'll
-        // skip the registration and this device will not receive any downstream messages from
-        // our fake server. Because weather alerts are not a core feature of the app, this should
-        // not affect the behavior of the app, from a user perspective.
-       /*
-        if (checkPlayServices()) {
-            // Because this is the initial creation of the app, we'll want to be certain we have
-            // a token. If we do not, then we will start the IntentService that will register this
-            // application with GCM.
-            SharedPreferences sharedPreferences =
-                    PreferenceManager.getDefaultSharedPreferences(this);
-            boolean sentToken = sharedPreferences.getBoolean(SENT_TOKEN_TO_SERVER, false);
-            if (!sentToken) {
-                Intent intent = new Intent(this, RegistrationIntentService.class);
-                startService(intent);
-            }
-        }
-*/
-        new EndpointsAsyncTask().execute(this);
-
-
-        jokes = new Jokes();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setActionBar(toolbar);
     }
 
 
@@ -77,12 +62,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void tellJoke(View view){
 
-        Joke joke = jokes.getNextJoke();
-
-        Intent intent = new Intent(this, JokeActivity.class);
-        intent.putExtra(JokeActivity.JOKE_KEY, joke.getJoke());
-        startActivity(intent);
-        //Toast.makeText(this, joke.getJoke(), Toast.LENGTH_SHORT).show();
+        new EndpointsAsyncTask().execute(this);
     }
 
     /**
@@ -106,8 +86,51 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
+    class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
+        private static final String LOG_TAG = "EndpointsAsynchTask";
+        private MyApi myApiService = null;
+        private Context context;
+
+        @Override
+        protected String doInBackground(Context... params) {
+            if(myApiService == null) {  // Only do this once
+                MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
+                        new AndroidJsonFactory(), null)
+                        // options for running against local devappserver
+                        // - 10.0.2.2 is localhost's IP address in Android emulator
+                        // - turn off compression when running against local devappserver
+                        .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                        .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+                            @Override
+                            public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
+                                abstractGoogleClientRequest.setDisableGZipContent(true);
+                            }
+                        });
+                // end options for devappserver
+
+                myApiService = builder.build();
+            }
+
+            context = params[0];
 
 
+            try {
+                return myApiService.getJokeRemote().execute().getData();
+            } catch (IOException e) {
+                return e.getMessage();
+            }
+        }
 
+        @Override
+        protected void onPostExecute(String result) {
 
+            Log.v(LOG_TAG, result);
+
+            Intent intent = new Intent(context, JokeActivity.class);
+            Log.v(LOG_TAG, "result " + result);
+            intent.putExtra(JokeActivity.JOKE_KEY, result);
+            startActivity(intent);
+
+        }
+    }
 }

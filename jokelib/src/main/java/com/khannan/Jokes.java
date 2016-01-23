@@ -1,11 +1,13 @@
 package com.khannan;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.Random;
 public class Jokes {
 
     private ArrayList<Joke> mJokeList = new ArrayList<Joke>();
     private int pointer = 0;
+    private static final String LOG_TAG = "Jokes";
 
     public Jokes() {
         mJokeList.add(new Joke(
@@ -21,6 +23,14 @@ public class Jokes {
 
     public Jokes(ArrayList<Joke> jokeList) {
         mJokeList = jokeList;
+    }
+
+    public Joke getJoke() {
+
+        Random random = new Random();
+        int i = random.nextInt(mJokeList.size());
+
+        return(mJokeList.get(i));
     }
 
     public Joke getNextJoke() {
