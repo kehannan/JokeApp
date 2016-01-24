@@ -14,7 +14,8 @@ import com.khannan.Jokes;
 
 
 /**
- * An endpoint class we are exposing
+ * Based on starter code from Google Developer web site.
+ *
  */
 @Api(
         name = "myApi",

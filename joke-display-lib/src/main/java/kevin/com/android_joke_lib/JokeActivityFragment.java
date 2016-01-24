@@ -1,4 +1,4 @@
-package com.udacity.gradle.builditbigger;
+package kevin.com.android_joke_lib;
 
 import android.content.Intent;
 import android.os.Bundle;

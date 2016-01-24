@@ -1,4 +1,4 @@
-package com.udacity.gradle.builditbigger;
+package kevin.com.android_joke_lib;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
