@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toolbar;
 
+import kevin.com.android_joke_lib.JokeActivity;
+import kevin.com.android_joke_lib.JokeActivityFragment;
+
 
 public class MainActivity extends AppCompatActivity implements JokeLoadListener {
 

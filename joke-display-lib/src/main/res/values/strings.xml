@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">android-jokeText-lib</string>
+    <string name="action_settings">action settings</string>
 </resources>

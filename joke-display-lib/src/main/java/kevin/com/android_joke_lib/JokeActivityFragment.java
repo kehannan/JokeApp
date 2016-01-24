@@ -11,7 +11,7 @@ import android.widget.TextView;
 /**
  * Class to display the the joke received from GCE.
  * It extracts the joke text from the intent and
- * renders it its view.
+ * renders it in its view.
  */
 
 public class JokeActivityFragment extends Fragment {
